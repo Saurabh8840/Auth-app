@@ -92,7 +92,7 @@ app.post("/signin",async function (req, res) {
     const {username,password}=result.data;
 
     try{
-        const existingUser= await User.findOne({username});
+        const existingUser= await User.findOne({username}).select("username firstName password");
 
         if(!existingUser){
             return res.status(404).json({message:"user does not exist"})
@@ -112,7 +112,8 @@ app.post("/signin",async function (req, res) {
         const token=jwt.sign(
             {
                 userId:existingUser._id,
-                username:existingUser.username
+                username:existingUser.username,
+                firstName:existingUser.firstName
             },
             process.env.JWT_SECRET,
             {expiresIn:"1h"}
@@ -127,7 +128,10 @@ app.post("/signin",async function (req, res) {
 
 
 app.get("/dashboard",authMiddleware,function(req,res){
-    res.json({message:`Welcome,${req.user.username}!You are authorized.`});
+    res.json({
+        firstName:req.user.firstName,
+        username:req.user.username,
+        message:`Welcome,${req.user.username}!You are authorized.`});
 })
 
 app.listen(3000, () => {
