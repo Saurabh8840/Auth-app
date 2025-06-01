@@ -27,7 +27,7 @@ const Signup = () => {
       alert("Signup successful");
     } catch (err) {
       console.error("Signup failed", err.response?.data || err.message);
-      alert("Signup failed");
+      alert("Signup failed yes");
     }
   }
 
