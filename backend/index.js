@@ -10,8 +10,9 @@ const { User } = require("./models/user.js");
 const bcrypt=require("bcryptjs");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const authMiddleware=require('./middleware');
-const {signupSchema,signinSchema}=require('./zodSchema');
 // const { ZeroSlopeEnding } = require("three/src/constants.js");
+const {signupSchema,signinSchema}=require('./zodSchema');
+
 
 
 
